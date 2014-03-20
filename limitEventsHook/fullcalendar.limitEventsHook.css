@@ -1,0 +1,25 @@
+.view-more span{
+	cursor:pointer;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	text-decoration: none;
+	background-color: #f1f1f1;
+	color: #000;
+	border: solid 1px #cbcbcb !important;
+	height: 14px;
+	outline:none;
+	font-size: 10px;
+	line-height: 14px;
+	
+}
+.view-more a {
+	padding: 5px;
+}
+.view-more span:hover {
+	background-color: #fff;
+}
+.view-more {
+	height: 100%;
+	vertical-align: bottom;
+	float:left;
+}

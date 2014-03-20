@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href='../fullcalendar/fullcalendar.css' rel='stylesheet' />
+<link href='../fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+<link href='../lib/cupertino/jquery-ui.min.css' rel='stylesheet' />
+<link href='../limitEventsHook/fullcalendar.limitEventsHook.css' rel='stylesheet' />
+
+<script src='../lib/jquery.min.js'></script>
+<script src='../lib/jquery-ui.custom.min.js'></script>
+<script src='../fullcalendar/fullcalendar.min.js'></script>
+<script src='../limitEventsHook/jshashtable-3.0/hashtable.js'></script>
+<script src='../limitEventsHook/fullcalendar.limitEventsHook.js'></script>
+
+<script>
+
+	$(document).ready(function() {
+	
+		var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		
+		var myEventHook = new limitEventsHook({
+			eventsLimit: 3,
+			clickHandler: function(dayCell, eventsList) {
+				var dialogBox = $("<div></div>");
+				var eventsListUI = $("<ul></ul>");
+				$(eventsList).each(function() {
+					eventsListUI.append($("<li></li>").text(this.title));
+				});
+				$(dialogBox).append(eventsListUI);
+				$(dialogBox).attr("title", "Events list for " + $(dayCell).data("date"));
+				$(dialogBox).dialog({
+					height: 300,
+					width: 400,
+					modal: true
+				});
+			}
+		});
+
+		$('#calendar').fullCalendar({
+			editable: true,
+			events: [
+				{
+					id:1,
+					title: 'Event 1',
+					start: new Date(y, m-1, 1),
+					end: new Date(y, m+1, d+8)
+				},
+				{
+					id:2,
+					title: 'Event 2',
+					start: new Date(y, m, d-5),
+					end: new Date(y, m, d+8)
+				},
+				{
+					id: 3,
+					title: 'Event 3',
+					start: new Date(y, m, d-3),
+					end: new Date(y, m, d+7)
+				},
+				{
+					id: 4,
+					title: 'Event 4',
+					start: new Date(y, m, d-5),
+					end: new Date(y, m, d+9)
+				},
+				{
+					id:5,
+					title: 'Event 5',
+					start: new Date(y, m, d),
+					end: new Date(y, m, d+12)
+				},
+				{
+					id:6,
+					title: 'Event 6',
+					start: new Date(y, m, d),
+					end: new Date(y, m, d+18)
+				},
+				{
+					id:7,
+					title: 'Event 7',
+					start: new Date(y, m, d+1),
+					end: new Date(y, m, d+15)
+				},
+				{
+					id:8,
+					title: 'Event 8',
+					start: new Date(y, m, 28),
+					end: new Date(y, m+1, 8),
+					url: 'http://google.com/'
+				}
+			],
+						
+			viewRender: myEventHook.hookByViewRender
+		});
+		
+	});
+</script>
+<style>
+
+	body {
+		margin-top: 40px;
+		text-align: center;
+		font-size: 14px;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		}
+
+	#calendar {
+		width: 900px;
+		margin: 0 auto;
+		}
+
+</style>
+</head>
+<body>
+<div id='calendar'></div>
+</body>
+</html>
